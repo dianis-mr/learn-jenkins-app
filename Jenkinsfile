@@ -19,5 +19,15 @@ pipeline {
                 '''
             }
         }
+        stage('Test') {
+            steps {
+                echo 'Testing the jenkins app ...'
+                sh '''
+                    test -f build/index.html
+                    npm ci
+                    npm test
+                '''
+            }
+        }
     }
 }
