@@ -39,11 +39,13 @@ pipeline {
                             npm test
                         '''
                     }
+                    /*
                     post {
                         always {
                             junit 'jest-results/junit.xml'
                         }
                     }
+                    */
                 }
                 stage('E2E') {
                     agent {
@@ -54,13 +56,28 @@ pipeline {
                     }
                     steps {
                         sh '''
-                            npm install serve
-                            node_modules/.bin/serve -s build &
+                            #npm install serve
+                            #node_modules/.bin/serve -s build &
                             sleep 10
                         '''
                     }
 
                 }
+            }
+        }
+
+        stage('Deploy') {
+            agent {
+                docker {
+                    image 'node:18-alpine'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh '''
+                    npm install netlify-cli
+                    node_modules/.bin/netlify --version
+                '''
             }
         }
     }
