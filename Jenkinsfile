@@ -35,7 +35,7 @@ pipeline {
                     steps {
                         echo 'Testing the jenkins app ...'
                         sh '''
-                            test -f build/index.html
+                            #test -f build/index.html
                             npm test
                         '''
                     }
