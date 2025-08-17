@@ -39,13 +39,12 @@ pipeline {
                     steps {
                         echo 'Testing the jenkins app ...'
                         sh '''
-                            #test -f build/index.html
                             npm test
                         '''
                     }
                     post {
                         always {
-                            junit 'jest-results/junit.xml'
+                            junit 'test-results/junit.xml'
                         }
                     }
                 }
